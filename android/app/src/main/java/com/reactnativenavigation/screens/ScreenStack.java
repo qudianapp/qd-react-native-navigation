@@ -56,6 +56,9 @@ public class ScreenStack {
 
     public void newStack(final ScreenParams params, LayoutParams layoutParams) {
         final Screen nextScreen = ScreenFactory.create(activity, params, leftButtonOnClickListener);
+        if (stack.isEmpty()){
+            return;
+        }
         final Screen previousScreen = stack.peek();
         if (isStackVisible) {
             pushScreenToVisibleStack(layoutParams, nextScreen, previousScreen, null, new Screen.OnDisplayListener() {
@@ -71,6 +74,9 @@ public class ScreenStack {
     }
 
     private void removeElementsBelowTop() {
+        if (stack.isEmpty()){
+            return;
+        }
         while (stack.size() > 1) {
             Screen screen = stack.get(0);
             parent.removeView(screen);
@@ -82,6 +88,9 @@ public class ScreenStack {
     public void pushInitialModalScreenWithAnimation(final ScreenParams initialScreenParams, LayoutParams params) {
         isStackVisible = true;
         pushInitialScreen(initialScreenParams, params);
+        if (stack.isEmpty()){
+            return;
+        }
         final Screen screen = stack.peek();
         screen.setOnDisplayListener(new Screen.OnDisplayListener() {
             @Override
@@ -105,6 +114,9 @@ public class ScreenStack {
 
     public void push(final ScreenParams params, LayoutParams layoutParams, Promise onPushComplete) {
         Screen nextScreen = ScreenFactory.create(activity, params, leftButtonOnClickListener);
+        if (stack.isEmpty()){
+            return;
+        }
         final Screen previousScreen = stack.peek();
         if (isStackVisible) {
             if (nextScreen.screenParams.sharedElementsTransitions.isEmpty()) {
@@ -210,6 +222,9 @@ public class ScreenStack {
 
     private void popInternal(final boolean animated, double jsPopTimestamp, @Nullable final OnScreenPop onScreenPop) {
         final Screen toRemove = stack.pop();
+        if (stack.isEmpty()){
+            return;
+        }
         final Screen previous = stack.peek();
         previous.screenParams.timestamp = jsPopTimestamp;
         swapScreens(animated, toRemove, previous, onScreenPop);
@@ -288,6 +303,9 @@ public class ScreenStack {
     }
 
     private boolean isPreviousScreenAttachedToWindow() {
+        if (stack.isEmpty()){
+            return false;
+        }
         Screen previousScreen = stack.get(stack.size() - 2);
         if (previousScreen.getParent() != null) {
             Log.w(TAG, "Can't pop stack. reason: previous screen is already attached");
@@ -364,6 +382,9 @@ public class ScreenStack {
     }
 
     private boolean isScreenVisible(Screen screen) {
+        if (stack.isEmpty()){
+            return false;
+        }
         return isStackVisible && peek() == screen;
     }
 
@@ -406,10 +427,16 @@ public class ScreenStack {
     }
 
     public StyleParams getCurrentScreenStyleParams() {
+        if (stack.isEmpty()){
+            return new StyleParams(new Bundle());
+        }
         return stack.peek().getStyleParams();
     }
 
     public boolean handleBackPressInJs() {
+        if (stack.isEmpty()){
+            return false;
+        }
         ScreenParams currentScreen = stack.peek().screenParams;
         if (currentScreen.overrideBackPressInJs) {
             NavigationApplication.instance.getEventEmitter().sendNavigatorEvent("backPress", currentScreen.getNavigatorEventId());
@@ -432,6 +459,9 @@ public class ScreenStack {
 
     public void show(NavigationType type) {
         isStackVisible = true;
+        if (stack.isEmpty()){
+            return;
+        }
         stack.peek().setStyle();
         stack.peek().setVisibility(View.VISIBLE);
         sendScreenAppearEvent(type, stack.peek());
@@ -462,9 +492,12 @@ public class ScreenStack {
 
 
     public void hide(NavigationType type) {
+        isStackVisible = false;
+        if (stack.isEmpty()){
+            return;
+        }
         NavigationApplication.instance.getEventEmitter().sendWillDisappearEvent(stack.peek().getScreenParams(), type);
         NavigationApplication.instance.getEventEmitter().sendDidDisappearEvent(stack.peek().getScreenParams(), type);
-        isStackVisible = false;
         stack.peek().setVisibility(View.INVISIBLE);
     }
 }

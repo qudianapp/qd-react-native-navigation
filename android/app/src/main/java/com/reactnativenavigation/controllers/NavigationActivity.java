@@ -472,7 +472,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
                 if (layout != null) {
                     layout.destroy();
                 }
-                
+
                 if (modalController != null) {
                     modalController.destroy();
                 }
@@ -504,11 +504,19 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     }
 
     public String getCurrentlyVisibleScreenId() {
-        return modalController.isShowing() ? modalController.getCurrentlyVisibleScreenId() : layout.getCurrentlyVisibleScreenId();
+        try {
+            return modalController.isShowing() ? modalController.getCurrentlyVisibleScreenId() : layout.getCurrentlyVisibleScreenId();
+        }catch (Exception e){
+            return "";
+        }
     }
 
     public String getCurrentlyVisibleEventId() {
-        return modalController.isShowing() ? modalController.getCurrentlyVisibleEventId() : layout.getCurrentScreen().getNavigatorEventId();
+        try {
+            return modalController.isShowing() ? modalController.getCurrentlyVisibleEventId() : layout.getCurrentScreen().getNavigatorEventId();
+        }catch (Exception e){
+            return "";
+        }
     }
 
     public static void setStartAppPromise(Promise promise) {

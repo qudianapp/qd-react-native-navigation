@@ -18,6 +18,9 @@ public class NavigationReactEventEmitter {
     }
 
     public void sendNavigatorEvent(String eventId, String navigatorEventId) {
+        if (eventEmitter == null){
+            return;
+        }
         WritableMap data = Arguments.createMap();
         data.putString(KEY_EVENT_TYPE, EVENT_TYPE);
         data.putString(KEY_EVENT_ID, eventId);
@@ -26,16 +29,25 @@ public class NavigationReactEventEmitter {
     }
 
     public void sendNavigatorEvent(String eventId, String navigatorEventId, WritableMap data) {
+        if (eventEmitter == null){
+            return;
+        }
         data.putString(KEY_NAVIGATOR_EVENT_ID, navigatorEventId);
         data.putString(KEY_EVENT_ID, eventId);
         eventEmitter.emit(navigatorEventId, data);
     }
 
     public void sendEvent(String eventId, String data) {
+        if (eventEmitter == null){
+            return;
+        }
         eventEmitter.emit(eventId, data);
     }
 
     public void sendEvent(String eventId, WritableMap data) {
+        if (eventEmitter == null){
+            return;
+        }
         eventEmitter.emit(eventId, data);
     }
 }
