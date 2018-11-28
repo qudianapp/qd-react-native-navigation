@@ -504,16 +504,12 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
     }
 
     private void sendTabSelectedEventToJs(int selectedTabIndex, int unselectedTabIndex) {
-        try {
-            String navigatorEventId = screenStacks[selectedTabIndex].peek().getNavigatorEventId();
-            WritableMap data = createTabSelectedEventData(selectedTabIndex, unselectedTabIndex);
-            NavigationApplication.instance.getEventEmitter().sendNavigatorEvent("bottomTabSelected", navigatorEventId, data);
+        String navigatorEventId = screenStacks[selectedTabIndex].peek().getNavigatorEventId();
+        WritableMap data = createTabSelectedEventData(selectedTabIndex, unselectedTabIndex);
+        NavigationApplication.instance.getEventEmitter().sendNavigatorEvent("bottomTabSelected", navigatorEventId, data);
 
-            data = createTabSelectedEventData(selectedTabIndex, unselectedTabIndex);
-            NavigationApplication.instance.getEventEmitter().sendNavigatorEvent("bottomTabSelected", data);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        data = createTabSelectedEventData(selectedTabIndex, unselectedTabIndex);
+        NavigationApplication.instance.getEventEmitter().sendNavigatorEvent("bottomTabSelected", data);
     }
 
     private WritableMap createTabSelectedEventData(int selectedTabIndex, int unselectedTabIndex) {
