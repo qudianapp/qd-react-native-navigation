@@ -1,7 +1,7 @@
 {
   "name": "@qudian_mobile/qd-react-native-navigation",
   "title": "Qd React Native Navigation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "src/index.js",
   "scripts": {
@@ -23,7 +23,6 @@
   "licenseFilename": "LICENSE",
   "readmeFilename": "README.md",
   "peerDependencies": {
-    
     "react": "*",
     "react-native": "*"
   },
