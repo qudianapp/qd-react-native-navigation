@@ -1,0 +1,54 @@
+{
+  "name": "@qudian_mobile/qd-react-native-navigation",
+  "title": "Qd React Native Navigation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qudianapp/qd-react-native-navigation.git",
+    "baseUrl": "https://github.com/qudianapp/qd-react-native-navigation"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "yangjun",
+    "email": "yangjun@qudian.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    
+    "react": "*",
+    "react-native": "*"
+  },
+  "dependencies": {
+    "lodash": "4.x.x"
+  },
+  "devDependencies": {
+    "babel-cli": "6.x.x",
+    "babel-core": "6.x.x",
+    "babel-eslint": "7.x.x",
+    "babel-jest": "18.x.x",
+    "babel-polyfill": "6.x.x",
+    "babel-preset-react-native": "1.x.x",
+    "babel-register": "6.x.x",
+    "eslint": "3.x.x",
+    "eslint-plugin-babel": "3.x.x",
+    "eslint-plugin-react": "6.x.x",
+    "eslint-plugin-react-native": "2.x.x",
+    "jest": "18.x.x",
+    "jest-cli": "18.x.x",
+    "jest-react-native": "18.x.x",
+    "prop-types": "^15.5.10",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.43.0",
+    "react-test-renderer": "15.4.2",
+    "semver": "5.x.x"
+  }
+}
