@@ -469,12 +469,21 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         NavigationApplication.instance.runOnMainThread(new Runnable() {
             @Override
             public void run() {
-                layout.destroy();
-                modalController.destroy();
+                if (layout != null) {
+                    layout.destroy();
+                }
+                
+                if (modalController != null) {
+                    modalController.destroy();
+                }
 
-                Object devSupportManager = ReflectionUtils.getDeclaredField(getReactGateway().getReactInstanceManager(), "mDevSupportManager");
-                if (ReflectionUtils.getDeclaredField(devSupportManager, "mRedBoxDialog") != null) { // RN >= 0.52
-                    ReflectionUtils.setField(devSupportManager, "mRedBoxDialog", null);
+                try {
+                    Object devSupportManager = ReflectionUtils.getDeclaredField(getReactGateway().getReactInstanceManager(), "mDevSupportManager");
+                    if (ReflectionUtils.getDeclaredField(devSupportManager, "mRedBoxDialog") != null) { // RN >= 0.52
+                        ReflectionUtils.setField(devSupportManager, "mRedBoxDialog", null);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });
